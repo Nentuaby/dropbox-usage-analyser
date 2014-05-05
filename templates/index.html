@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block body %}
+
+  {% if real_name %}
+    <p>Welcome {{ real_name }}!</p>
+    <p><a href="{{ url_for('dropbox_logout') }}" method="post">Log out</a></p>
+
+    {% if quota %}
+        <h2>Dropbox Usage Summary</h2>
+        <p><pre>{{ quota }}</pre></p>
+    {% endif %}
+
+    <h2>Changes since last load (delta)</h2>
+    <p>Raw Data: <a href="tree.json">tree.json</a> | <a href="tree-sample.json">tree-sample.json</a></p>
+
+    <ul>
+    <li><a href="view/sunburst">Sunburst</a></li>
+    <li><a href="view/bilevel-partition">Bilevel Partition</a></li>
+    </ul>
+
+  {% else %}
+    <a href="{{ url_for('dropbox_auth_start') }}">Link Your Dropbox Account</a>
+  {% endif %}
+
+{% endblock %}
